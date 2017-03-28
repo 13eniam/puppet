@@ -1,0 +1,26 @@
+#puppet setup
+
+version: '2'
+services:
+    master:
+        environment:
+            TYPE: server
+        build:
+            context: ./master
+        container_name: puppet_master 
+        expose:
+            - "8140"
+        hostname: puppet
+        volumes:
+        - ./master/manifests:/etc/puppet/manifests
+    agent:
+        environment:
+            TYPE: agent
+        build:
+            context: ./agent
+        container_name: puppet_agent
+        hostname: agent
+        depends_on:
+            - master
+        links:
+            - "master:puppet"
