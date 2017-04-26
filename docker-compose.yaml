@@ -10,7 +10,7 @@ services:
         container_name: puppet_master 
         expose:
             - "8140"
-        hostname: puppet
+        hostname: master
         volumes:
         - ./master/manifests:/etc/puppet/manifests
     agent:
