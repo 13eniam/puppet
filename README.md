@@ -20,7 +20,7 @@ in the puppet master's configuration file.
 To manually sign an agent's certificate, log into the puppet_master container and sign the certificate:
 
 `docker exec -ti puppet_master /bin/bash`
-`docker cert --sign <node-fqdn>`
+`puppet cert --sign <node-fqdn>`
 
 To apply the hello world resource in site.pp manifest on the agent, log back into the agent and run the --test option:
 
