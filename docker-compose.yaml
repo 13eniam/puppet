@@ -3,8 +3,6 @@
 version: '2'
 services:
     master:
-        environment:
-            TYPE: server
         build:
             context: ./master
         container_name: puppet_master 
@@ -13,13 +11,35 @@ services:
         hostname: master
         volumes:
         - ./master/manifests:/etc/puppet/manifests
-    agent:
-        environment:
-            TYPE: agent
+    agent1:
         build:
+            args:
+                node: agent1
             context: ./agent
-        container_name: puppet_agent
-        hostname: agent
+        container_name: puppet_agent1
+        hostname: agent1
+        depends_on:
+            - master
+        links:
+            - "master:puppet"
+    agent2:
+        build:
+            args:
+                node: agent2
+            context: ./agent
+        container_name: puppet_agent2
+        hostname: agent2
+        depends_on:
+            - master
+        links:
+            - "master:puppet"
+    agent3:
+        build:
+            args:
+                node: agent3
+            context: ./agent
+        container_name: puppet_agent3
+        hostname: agent3
         depends_on:
             - master
         links:
