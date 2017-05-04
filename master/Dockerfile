@@ -15,5 +15,12 @@ COPY environments /etc/puppet/environments
 #Set permissions on environments otherwise the agents will not be able to request their certificate
 RUN chmod -R 755 /etc/puppet/environments
 
+# Install puppet modules
+# Install in production
+RUN puppet module install puppetlabs-stdlib
+
+# Install in development
+RUN puppet module install puppetlabs-stdlib --environment development
+
 EXPOSE 8140
 ENTRYPOINT [ "/usr/bin/puppet", "master", "--no-daemonize", "--verbose" ]
